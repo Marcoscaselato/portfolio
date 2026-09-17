@@ -1,0 +1,1037 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Marcos Antonio Michalski Caselato — Portfólio</title>
+<meta name="description" content="Portfólio pessoal de Marcos Antonio Michalski Caselato, aluno de Tecnologia para Internet.">
+
+<!-- Fontes do Google Fonts: Silkscreen (títulos, estilo pixel art) e IBM Plex Sans (texto) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Silkscreen:wght@400;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+  /* ============================================================
+     VARIÁVEIS DE COR (paleta "Neon Noturno")
+     Definidas em :root para serem reutilizadas em toda a página.
+     A variação clara é derivada automaticamente da mesma paleta
+     quando o sistema do usuário está em modo claro.
+     ============================================================ */
+  :root {
+    --cor-fundo: #0D0F1A;
+    --cor-texto: #E6E8F2;
+    --cor-primaria: #00E5FF;   /* ciano neon */
+    --cor-secundaria: #7C3AED; /* roxo neon */
+    --cor-destaque: #FF2E88;   /* rosa neon */
+
+    --fonte-titulo: 'Silkscreen', monospace;
+    --fonte-texto: 'IBM Plex Sans', sans-serif;
+
+    --duracao-transicao: 0.5s;
+    --altura-nav: 64px;
+  }
+
+  /* O usuário pediu "segue o tema do celular/computador".
+     Como a paleta escolhida foi feita para tema escuro, aqui
+     derivamos uma versão clara mantendo as mesmas cores de
+     destaque (primária/secundária/destaque), só invertendo
+     fundo e texto para manter contraste adequado (WCAG AA). */
+  @media (prefers-color-scheme: light) {
+    :root {
+      --cor-fundo: #F4F5FA;
+      --cor-texto: #12131C;
+    }
+  }
+
+  * { box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    margin: 0;
+    background: var(--cor-fundo);
+    color: var(--cor-texto);
+    font-family: var(--fonte-texto);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1, h2, h3 {
+    font-family: var(--fonte-titulo);
+    line-height: 1.3;
+    letter-spacing: 0.5px;
+  }
+
+  a { color: var(--cor-primaria); }
+
+  img { max-width: 100%; display: block; }
+
+  .container {
+    width: 100%;
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+  }
+
+  /* ============================================================
+     FUNDO COM TRILHAS DE PLACA DE CIRCUITO (sutil)
+     Um SVG repetido em baixa opacidade, fixo atrás de tudo.
+     ============================================================ */
+  .fundo-circuito {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    opacity: 0.06;
+    pointer-events: none;
+    background-image:
+      linear-gradient(var(--cor-primaria) 1px, transparent 1px),
+      linear-gradient(90deg, var(--cor-primaria) 1px, transparent 1px),
+      radial-gradient(var(--cor-secundaria) 1.5px, transparent 1.5px);
+    background-size: 80px 80px, 80px 80px, 160px 160px;
+    background-position: 0 0, 0 0, 40px 40px;
+  }
+
+  /* ============================================================
+     BARRA DE PROGRESSO DE LEITURA (fixa no topo, acima do nav)
+     ============================================================ */
+  #barra-progresso {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 3px;
+    width: 0%;
+    background: var(--cor-destaque);
+    z-index: 200;
+    transition: width 0.1s linear;
+  }
+
+  /* ============================================================
+     MENU DE NAVEGAÇÃO — barra fixa no topo
+     ============================================================ */
+  header.nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: var(--altura-nav);
+    background: rgba(13, 15, 26, 0.85);
+    backdrop-filter: blur(6px);
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    z-index: 150;
+    display: flex;
+    align-items: center;
+  }
+
+  @media (prefers-color-scheme: light) {
+    header.nav { background: rgba(244, 245, 250, 0.85); }
+  }
+
+  .nav-conteudo {
+    width: 100%;
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .nav-marca {
+    font-family: var(--fonte-titulo);
+    font-size: 0.9rem;
+    color: var(--cor-primaria);
+    text-decoration: none;
+  }
+
+  .nav-links {
+    list-style: none;
+    display: flex;
+    gap: 1.5rem;
+    margin: 0;
+    padding: 0;
+  }
+
+  /* Estilo de link/botão: texto simples com sublinhado animado */
+  .link-sublinhado {
+    position: relative;
+    text-decoration: none;
+    color: var(--cor-texto);
+    font-size: 0.95rem;
+    padding-bottom: 2px;
+  }
+  .link-sublinhado::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 2px;
+    background: var(--cor-primaria);
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform var(--duracao-transicao) ease;
+  }
+  .link-sublinhado:hover::after,
+  .link-sublinhado:focus-visible::after {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+
+  /* ============================================================
+     SEÇÕES — animação de revelação ao rolar (borrado -> nítido)
+     ============================================================ */
+  main section {
+    padding: 6rem 0 4rem;
+  }
+
+  .revela {
+    filter: blur(8px);
+    opacity: 0;
+    transform: translateY(12px);
+    transition: filter 0.7s ease, opacity 0.7s ease, transform 0.7s ease;
+  }
+  .revela.visivel {
+    filter: blur(0);
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Respeita quem pediu para reduzir movimento */
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .revela {
+      filter: none;
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+    * {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+    }
+  }
+
+  /* ============================================================
+     DIVISÓRIA EM FORMA DE ONDA ENTRE SEÇÕES
+     ============================================================ */
+  .divisoria-onda {
+    display: block;
+    width: 100%;
+    height: 60px;
+    color: var(--cor-secundaria);
+    opacity: 0.5;
+  }
+
+  /* ============================================================
+     HERO — topo centralizado
+     ============================================================ */
+  #hero {
+    padding-top: calc(var(--altura-nav) + 4rem);
+    text-align: center;
+  }
+
+  .hero-avatar-area {
+    position: relative;
+    width: 220px;
+    height: 220px;
+    margin: 0 auto 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Disco de vinil girando atrás da foto — conecta com o card
+     "Capa do Meu Álbum" nas entregas */
+  .vinil {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background:
+      repeating-radial-gradient(
+        circle at center,
+        #111 0px, #111 2px,
+        #1c1c1c 2px, #1c1c1c 4px
+      );
+    box-shadow: 0 0 30px rgba(255, 46, 136, 0.25);
+    animation: girar 6s linear infinite;
+  }
+  .vinil::after {
+    content: "";
+    position: absolute;
+    inset: 42%;
+    border-radius: 50%;
+    background: var(--cor-destaque);
+  }
+  @keyframes girar {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+  }
+
+  .avatar-wrap {
+    position: relative;
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 3px solid var(--cor-primaria);
+    background: var(--cor-secundaria);
+    z-index: 2;
+  }
+
+  .avatar-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  /* Nome com efeito "embaralhado" que se decifra letra por letra via JS */
+  #hero h1 {
+    font-size: clamp(1.8rem, 6vw, 2.8rem);
+    color: var(--cor-primaria);
+    margin: 0 0 1rem;
+    min-height: 1.3em;
+  }
+
+  #hero p.frase {
+    font-size: clamp(1rem, 3vw, 1.25rem);
+    color: var(--cor-texto);
+    max-width: 32rem;
+    margin: 0 auto;
+  }
+
+  /* ============================================================
+     SEÇÃO SOBRE
+     ============================================================ */
+  #sobre h2, #entregas h2, #manifesto h2 {
+    color: var(--cor-primaria);
+    font-size: clamp(1.3rem, 4vw, 1.8rem);
+    margin-bottom: 1.5rem;
+  }
+
+  #sobre p { max-width: 42rem; }
+
+  /* Layout da seção Sobre: texto ao lado do controle de PS2 interativo */
+  .sobre-grid {
+    display: flex;
+    gap: 2.5rem;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    margin-top: 1.5rem;
+  }
+  .sobre-texto { flex: 1 1 320px; }
+  .sobre-texto p { max-width: 38rem; }
+
+  .controle-ps2-wrap {
+    flex: 0 0 260px;
+    max-width: 260px;
+    text-align: center;
+  }
+  .controle-ps2-wrap svg { width: 100%; height: auto; }
+  .controle-ps2-legenda {
+    font-size: 0.75rem;
+    opacity: 0.65;
+    margin-top: 0.6rem;
+  }
+
+  /* Botões do controle: viram links de navegação da página */
+  .botao-controle {
+    cursor: pointer;
+  }
+  .botao-controle circle.face {
+    transition: transform var(--duracao-transicao) ease, filter var(--duracao-transicao) ease;
+    transform-origin: center;
+    transform-box: fill-box;
+  }
+  .botao-controle:hover circle.face,
+  .botao-controle:focus circle.face {
+    transform: scale(1.12);
+    filter: brightness(1.3);
+  }
+  .botao-controle:focus { outline: none; }
+  .botao-controle:focus circle.face {
+    stroke: var(--cor-texto);
+    stroke-width: 2;
+  }
+
+  /* ============================================================
+     LINHA DO TEMPO DAS ENTREGAS (cards vira-card)
+     ============================================================ */
+  .timeline {
+    position: relative;
+    max-width: 640px;
+    margin: 0 auto;
+    padding-left: 2.5rem;
+  }
+
+  /* linha vertical ligando os cards */
+  .timeline::before {
+    content: "";
+    position: absolute;
+    left: 0.6rem;
+    top: 0.5rem;
+    bottom: 0.5rem;
+    width: 2px;
+    background: linear-gradient(var(--cor-primaria), var(--cor-secundaria));
+  }
+
+  .timeline-item {
+    position: relative;
+    margin-bottom: 2.5rem;
+  }
+
+  .timeline-item::before {
+    content: attr(data-numero);
+    position: absolute;
+    left: -2.5rem;
+    top: 0.4rem;
+    width: 1.3rem;
+    height: 1.3rem;
+    border-radius: 50%;
+    background: var(--cor-fundo);
+    border: 2px solid var(--cor-primaria);
+    color: var(--cor-primaria);
+    font-family: var(--fonte-titulo);
+    font-size: 0.6rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Estrutura do "vira-card": um contêiner com perspectiva 3D.
+     Altura maior que antes porque o verso agora traz o objetivo,
+     as competências e os dois blocos de destaque de cada entrega. */
+  /* O card não tem mais altura fixa: as duas faces ocupam a mesma
+     célula de grid, então o card se ajusta automaticamente à altura
+     da face mais alta — sem sobra de espaço vazio. */
+  .flip-card {
+    perspective: 1200px;
+  }
+
+  .flip-card-inner {
+    position: relative;
+    display: grid;
+    width: 100%;
+    text-align: left;
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    transition: transform var(--duracao-transicao) ease, box-shadow var(--duracao-transicao) ease;
+    transform-style: preserve-3d;
+  }
+
+  .flip-card.flipped .flip-card-inner {
+    transform: rotateY(180deg);
+  }
+
+  /* Efeito ao passar o mouse: sobe um pouco e a sombra aumenta */
+  .flip-card:not(.flipped):hover .flip-card-inner,
+  .flip-card-inner:focus-visible {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 24px rgba(0, 229, 255, 0.15);
+  }
+  .flip-card.flipped:hover .flip-card-inner {
+    transform: rotateY(180deg) translateY(-6px);
+  }
+
+  .flip-face {
+    grid-column: 1;
+    grid-row: 1;
+    backface-visibility: hidden;
+    border-radius: 6px;
+    border: 1px solid rgba(255,255,255,0.12);
+    padding: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    background: rgba(255,255,255,0.03);
+  }
+
+  .flip-face.frente { }
+
+  .flip-face.verso {
+    transform: rotateY(180deg);
+    justify-content: flex-start;
+    overflow-y: auto;
+    gap: 0.7rem;
+  }
+
+  .flip-face h3 {
+    margin: 0;
+    font-size: 1rem;
+    color: var(--cor-texto);
+  }
+
+  /* Rótulo do módulo, no formato que o próprio Marcos definiu
+     ("Módulo 0X • tema"), sem caixa alta forçada */
+  .modulo-rotulo {
+    font-size: 0.7rem;
+    color: var(--cor-secundaria);
+    margin: 0;
+  }
+
+  .objetivo-entrega {
+    font-size: 0.82rem;
+    margin: 0;
+    color: #FFFFFF;
+  }
+
+  .competencias-entrega {
+    margin: 0;
+    padding-left: 1.1rem;
+    font-size: 0.8rem;
+    color: var(--cor-primaria);
+  }
+  .competencias-entrega li { margin-bottom: 0.2rem; }
+
+  .bloco-destaque {
+    border-left: 2px solid var(--cor-primaria);
+    padding-left: 0.6rem;
+  }
+  .bloco-destaque h4 {
+    margin: 0 0 0.15rem;
+    font-size: 0.78rem;
+    font-family: var(--fonte-texto);
+    font-weight: 600;
+    color: var(--cor-primaria);
+  }
+  .bloco-destaque p {
+    margin: 0;
+    font-size: 0.78rem;
+    color: #FFFFFF;
+  }
+
+  .flip-face p { margin: 0; font-size: 0.85rem; }
+  .dica-clique {
+    font-size: 0.7rem;
+    opacity: 0.5;
+    margin-top: auto;
+  }
+
+  /* ============================================================
+     SEÇÃO MANIFESTO — coluna estreita, primeira letra gigante
+     ============================================================ */
+  #manifesto .coluna-artigo {
+    max-width: 34rem;
+    margin: 0 auto;
+    font-size: 1.02rem;
+  }
+
+  #manifesto .coluna-artigo p:first-of-type::first-letter {
+    font-family: var(--fonte-titulo);
+    font-size: 3.4rem;
+    float: left;
+    line-height: 0.8;
+    margin: 0.1rem 0.4rem 0 0;
+    color: var(--cor-destaque);
+  }
+
+  /* ============================================================
+     RODAPÉ
+     ============================================================ */
+  footer {
+    border-top: 1px solid rgba(255,255,255,0.08);
+    padding: 2.5rem 0 3rem;
+    text-align: center;
+    font-size: 0.9rem;
+  }
+  footer .rodape-links {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-top: 0.75rem;
+    flex-wrap: wrap;
+  }
+
+  /* ============================================================
+     CONTADOR "você está aqui há X segundos"
+     ============================================================ */
+  #contador-tempo {
+    position: fixed;
+    bottom: 1rem;
+    right: 1rem;
+    background: rgba(13, 15, 26, 0.8);
+    border: 1px solid var(--cor-secundaria);
+    color: var(--cor-texto);
+    font-size: 0.7rem;
+    padding: 0.4rem 0.7rem;
+    border-radius: 4px;
+    z-index: 150;
+    font-family: var(--fonte-texto);
+  }
+  @media (prefers-color-scheme: light) {
+    #contador-tempo { background: rgba(244,245,250,0.9); }
+  }
+
+  /* ============================================================
+     RESPONSIVIDADE — testado mentalmente em 360px
+     ============================================================ */
+  @media (max-width: 480px) {
+    .nav-links { gap: 0.9rem; }
+    .nav-links a { font-size: 0.85rem; }
+    .timeline { padding-left: 2rem; }
+    .timeline-item::before { left: -2rem; }
+    .hero-avatar-area { width: 180px; height: 180px; }
+    .avatar-wrap { width: 130px; height: 130px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Fundo decorativo com trilhas de circuito (puramente visual) -->
+<div class="fundo-circuito" aria-hidden="true"></div>
+
+<!-- Barra de progresso de leitura, atualizada via JS ao rolar a página -->
+<div id="barra-progresso" aria-hidden="true"></div>
+
+<!-- Menu fixo no topo -->
+<header class="nav">
+  <div class="nav-conteudo">
+    <a href="#hero" class="nav-marca">M.A.M.C.</a>
+    <ul class="nav-links">
+      <li><a href="#sobre" class="link-sublinhado">Sobre</a></li>
+      <li><a href="#entregas" class="link-sublinhado">Entregas</a></li>
+      <li><a href="#manifesto" class="link-sublinhado">Manifesto</a></li>
+      <li><a href="#rodape" class="link-sublinhado">Contato</a></li>
+    </ul>
+  </div>
+</header>
+
+<main>
+
+  <!-- ============================================================
+       HERO
+       ============================================================ -->
+  <section id="hero">
+    <div class="container">
+      <div class="hero-avatar-area">
+        <!-- Disco de vinil animado, gira atrás da foto -->
+        <div class="vinil" aria-hidden="true"></div>
+        <div class="avatar-wrap">
+          <!-- [PREENCHER] troque "foto.jpg" pela sua foto real -->
+          <img src="foto.jpg" alt="Foto de Marcos Antonio Michalski Caselato" onerror="this.style.display='none'">
+        </div>
+      </div>
+      <!-- O texto real do nome fica no atributo data-nome; o JS embaralha e decifra -->
+      <h1 id="nome-hero" data-nome="Marcos Antonio Michalski Caselato" aria-label="Marcos Antonio Michalski Caselato"></h1>
+      <p class="frase">busca por experiência na área</p>
+    </div>
+  </section>
+
+  <!-- Divisória em onda -->
+  <svg class="divisoria-onda" viewBox="0 0 1200 60" preserveAspectRatio="none" aria-hidden="true">
+    <path d="M0,30 C150,60 350,0 600,30 C850,60 1050,0 1200,30 L1200,60 L0,60 Z" fill="currentColor"></path>
+  </svg>
+
+  <!-- ============================================================
+       SOBRE MIM
+       ============================================================ -->
+  <section id="sobre" class="revela">
+    <div class="container">
+      <h2>Sobre mim</h2>
+      <div class="sobre-grid">
+        <div class="sobre-texto">
+          <p>Desde cedo, números, lógica e a forma como as coisas funcionam por dentro chamam minha atenção. Escolhi o curso técnico em Tecnologia para Internet pensando nisso: usar a programação como porta de entrada para a Engenharia, aplicando raciocínio técnico em problemas reais e unindo curiosidade por sistemas complexos — da eletrônica à engenharia militar — com disciplina de estudo.</p>
+          <p>Fora da sala de aula, meu jeito de aprender passa por videogame — não só jogar, mas entender como um jogo é construído por trás das telas: lógica, regras, física, interface. É esse mesmo impulso de desmontar e entender sistemas que quero levar para a engenharia, e um dia talvez também para desenvolver jogos.</p>
+        </div>
+
+        <!-- Detalhe que só existe nesta página: um controle de PS2 clicável.
+             Cada botão de ação é um link <a> dentro do SVG que leva para
+             uma entrega diferente ou para o manifesto. -->
+        <div class="controle-ps2-wrap">
+          <svg viewBox="0 0 300 190" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="titulo-controle">
+            <title id="titulo-controle">Controle de PS2 — clique nos botões para navegar pelo portfólio</title>
+
+            <!-- cabo (decorativo) -->
+            <path d="M150,178 C140,186 160,188 150,178" fill="none" stroke="rgba(230,232,242,0.25)" stroke-width="3" stroke-linecap="round"></path>
+            <path d="M150,172 L150,182" fill="none" stroke="rgba(230,232,242,0.25)" stroke-width="3" stroke-linecap="round"></path>
+
+            <!-- corpo do controle -->
+            <path d="M48,68 C12,68 0,112 17,150 C29,172 62,166 80,144 L112,112 L188,112 L220,144 C238,166 271,172 283,150 C300,112 288,68 252,68 C230,58 205,54 195,50 C180,45 120,45 105,50 C95,54 70,58 48,68 Z"
+                  fill="rgba(255,255,255,0.05)" stroke="rgba(230,232,242,0.22)" stroke-width="2"></path>
+
+            <!-- sombra interna sutil para dar volume ao corpo -->
+            <path d="M60,80 C35,86 25,112 32,138" fill="none" stroke="rgba(0,0,0,0.25)" stroke-width="6" stroke-linecap="round" opacity="0.4"></path>
+            <path d="M240,80 C265,86 275,112 268,138" fill="none" stroke="rgba(0,0,0,0.25)" stroke-width="6" stroke-linecap="round" opacity="0.4"></path>
+
+            <!-- gatilhos L2 / R2 -->
+            <path d="M58,48 L98,44 L94,58 L62,60 Z" fill="rgba(230,232,242,0.12)" stroke="rgba(230,232,242,0.3)" stroke-width="1.5"></path>
+            <path d="M242,48 L202,44 L206,58 L238,60 Z" fill="rgba(230,232,242,0.12)" stroke="rgba(230,232,242,0.3)" stroke-width="1.5"></path>
+            <text x="78" y="53" font-size="6" fill="rgba(230,232,242,0.5)" text-anchor="middle" font-family="var(--fonte-texto)">L2</text>
+            <text x="222" y="53" font-size="6" fill="rgba(230,232,242,0.5)" text-anchor="middle" font-family="var(--fonte-texto)">R2</text>
+
+            <!-- gatilhos L1 / R1 -->
+            <rect x="60" y="61" width="38" height="10" rx="3" fill="rgba(230,232,242,0.1)" stroke="rgba(230,232,242,0.3)" stroke-width="1.5"></rect>
+            <rect x="202" y="61" width="38" height="10" rx="3" fill="rgba(230,232,242,0.1)" stroke="rgba(230,232,242,0.3)" stroke-width="1.5"></rect>
+            <text x="79" y="69" font-size="6" fill="rgba(230,232,242,0.5)" text-anchor="middle" font-family="var(--fonte-texto)">L1</text>
+            <text x="221" y="69" font-size="6" fill="rgba(230,232,242,0.5)" text-anchor="middle" font-family="var(--fonte-texto)">R1</text>
+
+            <!-- direcional em cruz -->
+            <g fill="rgba(230,232,242,0.4)" stroke="rgba(230,232,242,0.55)" stroke-width="1">
+              <rect x="65" y="88" width="12" height="34" rx="2"></rect>
+              <rect x="54" y="99" width="34" height="12" rx="2"></rect>
+            </g>
+            <circle cx="71" cy="105" r="3" fill="rgba(13,15,26,0.6)"></circle>
+
+            <!-- Select / Analog / Start -->
+            <rect x="128" y="82" width="16" height="7" rx="3.5" fill="rgba(230,232,242,0.12)" stroke="rgba(230,232,242,0.3)"></rect>
+            <rect x="156" y="82" width="16" height="7" rx="3.5" fill="rgba(230,232,242,0.12)" stroke="rgba(230,232,242,0.3)"></rect>
+            <text x="136" y="93" font-size="5.5" fill="rgba(230,232,242,0.45)" text-anchor="middle" font-family="var(--fonte-texto)">Select</text>
+            <text x="164" y="93" font-size="5.5" fill="rgba(230,232,242,0.45)" text-anchor="middle" font-family="var(--fonte-texto)">Start</text>
+
+            <!-- botão central Analog -->
+            <circle cx="150" cy="108" r="9" fill="rgba(230,232,242,0.08)" stroke="rgba(230,232,242,0.35)" stroke-width="1.5"></circle>
+            <text x="150" y="110.5" font-size="5" fill="rgba(230,232,242,0.55)" text-anchor="middle" font-family="var(--fonte-texto)">ANALOG</text>
+
+            <!-- analógicos com textura de grip -->
+            <g>
+              <circle cx="108" cy="140" r="15" fill="rgba(0,0,0,0.25)" stroke="rgba(230,232,242,0.25)"></circle>
+              <circle cx="108" cy="140" r="10" fill="rgba(230,232,242,0.14)" stroke="rgba(230,232,242,0.35)"></circle>
+              <circle cx="103" cy="136" r="1" fill="rgba(230,232,242,0.4)"></circle>
+              <circle cx="113" cy="136" r="1" fill="rgba(230,232,242,0.4)"></circle>
+              <circle cx="103" cy="144" r="1" fill="rgba(230,232,242,0.4)"></circle>
+              <circle cx="113" cy="144" r="1" fill="rgba(230,232,242,0.4)"></circle>
+            </g>
+            <g>
+              <circle cx="192" cy="140" r="15" fill="rgba(0,0,0,0.25)" stroke="rgba(230,232,242,0.25)"></circle>
+              <circle cx="192" cy="140" r="10" fill="rgba(230,232,242,0.14)" stroke="rgba(230,232,242,0.35)"></circle>
+              <circle cx="187" cy="136" r="1" fill="rgba(230,232,242,0.4)"></circle>
+              <circle cx="197" cy="136" r="1" fill="rgba(230,232,242,0.4)"></circle>
+              <circle cx="187" cy="144" r="1" fill="rgba(230,232,242,0.4)"></circle>
+              <circle cx="197" cy="144" r="1" fill="rgba(230,232,242,0.4)"></circle>
+            </g>
+
+            <!-- botão Triângulo -> Entrega 01 -->
+            <a href="#entrega-1" class="botao-controle" aria-label="Ir para a entrega Capa do Meu Álbum Visual">
+              <circle class="face" cx="228" cy="86" r="12" fill="var(--cor-primaria)" fill-opacity="0.2" stroke="var(--cor-primaria)" stroke-width="2"></circle>
+              <path d="M228,79 L234,90 L222,90 Z" fill="none" stroke="var(--cor-primaria)" stroke-width="2" stroke-linejoin="round"></path>
+            </a>
+
+            <!-- botão Quadrado -> Entrega 02 -->
+            <a href="#entrega-2" class="botao-controle" aria-label="Ir para a entrega Dashboard Quem Sou Eu">
+              <circle class="face" cx="204" cy="110" r="12" fill="var(--cor-secundaria)" fill-opacity="0.2" stroke="var(--cor-secundaria)" stroke-width="2"></circle>
+              <rect x="198.5" y="104.5" width="11" height="11" fill="none" stroke="var(--cor-secundaria)" stroke-width="2"></rect>
+            </a>
+
+            <!-- botão X -> Entrega 04 -->
+            <a href="#entrega-4" class="botao-controle" aria-label="Ir para a entrega Âncoras de Carreira">
+              <circle class="face" cx="228" cy="134" r="12" fill="var(--cor-destaque)" fill-opacity="0.2" stroke="var(--cor-destaque)" stroke-width="2"></circle>
+              <path d="M224,130 L232,138 M232,130 L224,138" stroke="var(--cor-destaque)" stroke-width="2" stroke-linecap="round"></path>
+            </a>
+
+            <!-- botão Círculo -> Manifesto -->
+            <a href="#manifesto" class="botao-controle" aria-label="Ir para o Manifesto">
+              <circle class="face" cx="252" cy="110" r="12" fill="var(--cor-texto)" fill-opacity="0.12" stroke="var(--cor-texto)" stroke-width="2"></circle>
+              <circle cx="252" cy="110" r="5.5" fill="none" stroke="var(--cor-texto)" stroke-width="2"></circle>
+            </a>
+          </svg>
+          <p class="controle-ps2-legenda">Clique nos botões do controle para navegar até uma entrega ou o manifesto.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <svg class="divisoria-onda" viewBox="0 0 1200 60" preserveAspectRatio="none" aria-hidden="true">
+    <path d="M0,30 C150,0 350,60 600,30 C850,0 1050,60 1200,30 L1200,60 L0,60 Z" fill="currentColor"></path>
+  </svg>
+
+  <!-- ============================================================
+       MINHAS ENTREGAS — linha do tempo vertical de cards vira-card
+       ============================================================ -->
+  <section id="entregas" class="revela">
+    <div class="container">
+      <h2>Minhas entregas</h2>
+      <div class="timeline">
+
+        <!-- Cada .timeline-item é um card que vira ao ser clicado. -->
+
+        <div class="timeline-item" id="entrega-1" data-numero="1">
+          <div class="flip-card">
+            <button class="flip-card-inner" type="button" aria-pressed="false">
+              <div class="flip-face frente">
+                <h3>01. Capa do Meu Álbum Visual</h3>
+                <p class="objetivo-entrega">Traduzir a jornada pessoal, interesses em programação e metas de carreira em uma narrativa conceitual estilizada em formato de capa de álbum e tracklist.</p>
+                <span class="dica-clique">clique para virar</span>
+              </div>
+              <div class="flip-face verso">
+                <ul class="competencias-entrega">
+                  <li>Design de marca pessoal e identidade visual.</li>
+                  <li>Síntese conceitual e estruturação de ideias.</li>
+                </ul>
+                <div class="bloco-destaque">
+                  <h4>Capa &amp; Identity</h4>
+                  <p>Identidade "System &amp; Logic", combinando o foco em exatas, lógica e visão de futuro.</p>
+                </div>
+                <div class="bloco-destaque">
+                  <h4>Resultado Principal</h4>
+                  <p>Alinhamento de valores pessoais com a meta técnica de ingressar em Engenharia.</p>
+                </div>
+              </div>
+            </button>
+          </div>
+        </div>
+
+        <div class="timeline-item" id="entrega-2" data-numero="2">
+          <div class="flip-card">
+            <button class="flip-card-inner" type="button" aria-pressed="false">
+              <div class="flip-face frente">
+                <p class="modulo-rotulo">Módulo 02 • Mapeamento de Dados</p>
+                <h3>02. Dashboard "Quem Sou Eu"</h3>
+                <p class="objetivo-entrega">Mapear e organizar dados pessoais, indicadores de desempenho estudantil e habilidades técnicas em um painel interativo e objetivo.</p>
+                <span class="dica-clique">clique para virar</span>
+              </div>
+              <div class="flip-face verso">
+                <ul class="competencias-entrega">
+                  <li>Arquitetura de dados e organização visual de indicadores.</li>
+                  <li>Análise de métricas de desempenho e evolução individual.</li>
+                </ul>
+                <div class="bloco-destaque">
+                  <h4>Painel Executivo</h4>
+                  <p>Métricas consolidadas de desempenho, interesses e metas aos 15 anos.</p>
+                </div>
+                <div class="bloco-destaque">
+                  <h4>Resultado Principal</h4>
+                  <p>Clareza no acompanhamento do aprendizado no curso de Tecnologia para Internet.</p>
+                </div>
+              </div>
+            </button>
+          </div>
+        </div>
+
+        <div class="timeline-item" id="entrega-3" data-numero="3">
+          <div class="flip-card">
+            <button class="flip-card-inner" type="button" aria-pressed="false">
+              <div class="flip-face frente">
+                <p class="modulo-rotulo">Módulo 03 • Planejamento de Carreira</p>
+                <h3>03. Árvore das Profissões</h3>
+                <p class="objetivo-entrega">Investigar o mercado tecnológico e mapear as conexões entre a formação em Tecnologia para Internet e as especializações em Engenharia.</p>
+                <span class="dica-clique">clique para virar</span>
+              </div>
+              <div class="flip-face verso">
+                <ul class="competencias-entrega">
+                  <li>Pesquisa sistemática de mercado de trabalho e requisitos técnicos.</li>
+                  <li>Mapeamento de pré-requisitos para a área de exatas.</li>
+                </ul>
+                <div class="bloco-destaque">
+                  <h4>Ramificações de Carreira</h4>
+                  <p>Engenharia de Computação, Engenharia de Software e Controle e Automação.</p>
+                </div>
+                <div class="bloco-destaque">
+                  <h4>Resultado Principal</h4>
+                  <p>Visão de longo prazo para a transição entre o curso técnico e o ensino superior.</p>
+                </div>
+              </div>
+            </button>
+          </div>
+        </div>
+
+        <div class="timeline-item" id="entrega-4" data-numero="4">
+          <div class="flip-card">
+            <button class="flip-card-inner" type="button" aria-pressed="false">
+              <div class="flip-face frente">
+                <p class="modulo-rotulo">Módulo 04 • Avaliação Profissional</p>
+                <h3>04. Âncoras de Carreira</h3>
+                <p class="objetivo-entrega">Identificar os principais direcionadores de motivação e satisfação no ambiente técnico e profissional.</p>
+                <span class="dica-clique">clique para virar</span>
+              </div>
+              <div class="flip-face verso">
+                <ul class="competencias-entrega">
+                  <li>Autoconhecimento e análise de perfil profissional.</li>
+                  <li>Mapeamento das motivações centrais de engajamento.</li>
+                </ul>
+                <div class="bloco-destaque">
+                  <h4>Mapeamento Motivacional</h4>
+                  <p>Foco nas âncoras de Competência Técnica e Desafio Puro.</p>
+                </div>
+                <div class="bloco-destaque">
+                  <h4>Resultado Principal</h4>
+                  <p>Compromisso com o rigor técnico, superação de problemas e evolução constante.</p>
+                </div>
+              </div>
+            </button>
+          </div>
+        </div>
+
+        <div class="timeline-item" id="entrega-5" data-numero="5">
+          <div class="flip-card">
+            <button class="flip-card-inner" type="button" aria-pressed="false">
+              <div class="flip-face frente">
+                <p class="modulo-rotulo">Módulo 05 • Compromisso Profissional</p>
+                <h3>05. O Manifesto Pessoal</h3>
+                <p class="objetivo-entrega">Formalizar uma declaração de valores éticos, ética de trabalho e objetivos de longo prazo no setor de tecnologia e engenharia.</p>
+                <span class="dica-clique">clique para virar</span>
+              </div>
+              <div class="flip-face verso">
+                <ul class="competencias-entrega">
+                  <li>Redação corporativa e síntese de princípios.</li>
+                  <li>Planejamento estratégico e conduta pessoal.</li>
+                </ul>
+                <div class="bloco-destaque">
+                  <h4>Compromisso de Futuro</h4>
+                  <p>Declaração de ética de trabalho, disciplina e dedicação aos estudos.</p>
+                </div>
+                <div class="bloco-destaque">
+                  <h4>Resultado Principal</h4>
+                  <p>Consolidação do objetivo de atuar com excelência no setor tecnológico.</p>
+                </div>
+              </div>
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <svg class="divisoria-onda" viewBox="0 0 1200 60" preserveAspectRatio="none" aria-hidden="true">
+    <path d="M0,30 C150,60 350,0 600,30 C850,60 1050,0 1200,30 L1200,60 L0,60 Z" fill="currentColor"></path>
+  </svg>
+
+  <!-- ============================================================
+       MANIFESTO — coluna estreita com primeira letra gigante
+       ============================================================ -->
+  <section id="manifesto" class="revela">
+    <div class="container">
+      <h2>Manifesto</h2>
+      <div class="coluna-artigo">
+        <p>Escrevo este manifesto como um compromisso comigo mesmo: aos 15 anos, cursando Tecnologia para Internet, decidi transformar essa base técnica em uma trajetória consciente rumo à Engenharia. Acredito que tecnologia não é um fim em si mesma, mas uma ferramenta de raciocínio — cada erro de lógica ou sistema mal estruturado é uma chance de exercitar exatidão e paciência. Foi esse princípio de "System &amp; Logic" que guiou a identidade deste portfólio.</p>
+
+        <p>Minhas âncoras de carreira estão na Competência Técnica e no Desafio Puro: não busco apenas um cargo, busco dominar profundamente o que faço e enfrentar problemas que exijam esforço real. Ao investigar as ramificações entre minha formação técnica e as especializações em Engenharia de Computação, Engenharia de Software e Controle e Automação, entendi que o caminho não precisa estar todo definido agora — precisa estar orientado.</p>
+
+        <p>Assumo três compromissos: rigor técnico, tratando o erro como parte do processo; disciplina de estudo, sustentada por constância e não por picos isolados; e curiosidade genuína, seja programando, entendendo como um jogo é construído por trás das telas, ou lendo sobre engenharia militar por interesse próprio. Este manifesto não promete perfeição — é uma declaração de direção.</p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ============================================================
+     RODAPÉ
+     ============================================================ -->
+<footer id="rodape">
+  <div class="container">
+    <p>Marcos Antonio Michalski Caselato — Tecnologia para Internet</p>
+    <div class="rodape-links">
+      <a class="link-sublinhado" href="https://github.com/marcoscaselato" target="_blank" rel="noopener">GitHub: marcoscaselato</a>
+      <a class="link-sublinhado" href="mailto:marcoscaselato2773@gmail.com">marcoscaselato2773@gmail.com</a>
+    </div>
+  </div>
+</footer>
+
+<!-- Contador de tempo na página -->
+<div id="contador-tempo" aria-hidden="true">você está aqui há 0s</div>
+
+<script>
+  // ============================================================
+  // Verifica se o usuário pediu para reduzir movimento no sistema.
+  // Isso é usado para desligar animações não essenciais (JS).
+  // ============================================================
+  const reduzMovimento = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // ============================================================
+  // EFEITO: nome embaralhado que se decifra letra por letra
+  // ============================================================
+  (function decifrarNome() {
+    const elemento = document.getElementById('nome-hero');
+    const nomeFinal = elemento.getAttribute('data-nome');
+    const caracteresAleatorios = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+
+    if (reduzMovimento) {
+      // Sem animação: mostra o nome direto
+      elemento.textContent = nomeFinal;
+      return;
+    }
+
+    let quadro = 0;
+    const totalQuadros = 24; // quantos "passos" até decifrar tudo
+
+    function sortearCaractere() {
+      return caracteresAleatorios[Math.floor(Math.random() * caracteresAleatorios.length)];
+    }
+
+    const intervalo = setInterval(() => {
+      quadro++;
+      // proporção de letras já "decifradas" nesse quadro
+      const letrasReveladas = Math.floor((quadro / totalQuadros) * nomeFinal.length);
+
+      let textoAtual = '';
+      for (let i = 0; i < nomeFinal.length; i++) {
+        const caractereOriginal = nomeFinal[i];
+        if (caractereOriginal === ' ') {
+          textoAtual += ' ';
+        } else if (i < letrasReveladas) {
+          textoAtual += caractereOriginal;
+        } else {
+          textoAtual += sortearCaractere();
+        }
+      }
+      elemento.textContent = textoAtual;
+
+      if (quadro >= totalQuadros) {
+        clearInterval(intervalo);
+        elemento.textContent = nomeFinal;
+      }
+    }, 45);
+  })();
+
+  // ============================================================
+  // CARDS VIRA-CARD: clique/toque alterna a classe "flipped"
+  // Também funciona com teclado (Enter/Espaço), pois usamos <button>
+  // ============================================================
+  document.querySelectorAll('.flip-card-inner').forEach((botao) => {
+    botao.addEventListener('click', () => {
+      const card = botao.closest('.flip-card');
+      const virado = card.classList.toggle('flipped');
+      botao.setAttribute('aria-pressed', virado ? 'true' : 'false');
+    });
+  });
+
+  // ============================================================
+  // ANIMAÇÃO AO ROLAR: seções ficam nítidas ao entrar na tela
+  // ============================================================
+  const secoesParaRevelar = document.querySelectorAll('.revela');
+
+  if ('IntersectionObserver' in window && !reduzMovimento) {
+    const observador = new IntersectionObserver((entradas) => {
+      entradas.forEach((entrada) => {
+        if (entrada.isIntersecting) {
+          entrada.target.classList.add('visivel');
+          observador.unobserve(entrada.target);
+        }
+      });
+    }, { threshold: 0.15 });
+
+    secoesParaRevelar.forEach((secao) => observador.observe(secao));
+  } else {
+    // Sem suporte a IntersectionObserver ou com movimento reduzido:
+    // mostra tudo nítido de uma vez
+    secoesParaRevelar.forEach((secao) => secao.classList.add('visivel'));
+  }
+
+  // ============================================================
+  // BARRA DE PROGRESSO DE LEITURA
+  // ============================================================
+  function atualizarBarraProgresso() {
+    const alturaTotal = document.documentElement.scrollHeight - window.innerHeight;
+    const posicaoAtual = window.scrollY;
+    const porcentagem = alturaTotal > 0 ? (posicaoAtual / alturaTotal) * 100 : 0;
+    document.getElementById('barra-progresso').style.width = porcentagem + '%';
+  }
+  window.addEventListener('scroll', atualizarBarraProgresso, { passive: true });
+  atualizarBarraProgresso();
+
+  // ============================================================
+  // CONTADOR "você está aqui há X segundos"
+  // ============================================================
+  let segundosNaPagina = 0;
+  const elementoContador = document.getElementById('contador-tempo');
+  setInterval(() => {
+    segundosNaPagina++;
+    elementoContador.textContent = 'você está aqui há ' + segundosNaPagina + 's';
+  }, 1000);
+</script>
+
+</body>
+</html>
