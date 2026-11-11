@@ -19,7 +19,7 @@ Aplicação web interativa em formato de *slide deck*, criada para guiar o públ
 * **Tecnologias:** HTML5, CSS3, JavaScript (ES6+), Git, GitHub e Render.
 * **Links de Acesso:**
   * 🌐 [Demonstração da Aplicação](https://cheflogico.onrender.com)
-  * 🖥️ **Apresentação / Projeto Online:** [Abrir Apresentação Mundo SENAI 2026](https://marcoscaselato.github.io/Mundo-senai-2026/)
+  * 🖥️ [Apresentação Mundo SENAI 2026](https://marcoscaselato.github.io/Mundo-senai-2026/)
   * 📁 [Repositório no GitHub](https://github.com/Marcoscaselato/Mundo-senai-2026)
   * 📄 [Feadback e Detalhes do Projeto](https://github.com/Marcoscaselato/Mundo-senai-2026/tree/main/detalhes-do-projeto)
     
